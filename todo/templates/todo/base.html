@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Welcome to my homepage!</title>
+
+    <meta name="This is my homepage! it's a project to learn HTML,DJANGO and backend. Maybe it will be my personal blog about the this journey!" content="a lot of copy past and edits, this content is a gift for humanity xD">
+    <meta name="Gustavo Felipe de Oliveira" content="Gustavo Felipe de Oliveira!">
+
+    <link rel="stylesheet" href="{% static 'todo/material-kit.min.css' %}">
+    <link rel="stylesheet" href="{% static 'todo/custom.css' %}">
+
+  </head>
+
+<body>
+    <div class="container-fluid" style="background-color: rgba(72, 65, 81, 1 )">
+
+        {% if user.is_authenticated %}
+        <<nav id="topNav" class="navbar navbar-expand-md navbar-light">
+            <div class="container" >
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <span>Welcome {{ user.name }}</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-center" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% static "portifolio/resume.pdf" %}">Resume</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.linkedin.com/in/gustavo-f-oliveira/" target="_blank">LinkedIn</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://stackoverflow.com/users/14650025/gustavo-felipe-oliveira" target="_blank">StackOverflow</a>
+                        </li>
+                        <li>
+                            <a role="button" href="{% url 'completedtodos' %}" class="btn btn-primary">Completed</a>
+                        </li>
+                        <li>
+                            <a role="button" href="{% url 'currenttodos' %}" class="btn btn-primary">Current</a>
+                        </li>
+                        <li>
+                            <a role="button" href="{% url 'createtodo' %}" class="btn btn-primary">Create</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </nav>
+
+        {% else %}
+            <div class="container-fluid" style="text-align: right;">
+                <a href="{% url 'signupuser' %}">Sign Up</a>
+                <a href="{% url 'loginuser' %}">Login</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <br>
+        <br>
+
+
+        <div class="container-fluid">
+            <div class="text-light" style="text-align: left;" >
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</body>

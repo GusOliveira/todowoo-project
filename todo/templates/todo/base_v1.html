@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Welcome to my homepage!</title>
+
+    <meta name="This is my homepage! it's a project to learn HTML,DJANGO and backend. Maybe it will be my personal blog about the this journey!" content="a lot of copy past and edits, this content is a gift for humanity xD">
+    <meta name="Gustavo Felipe de Oliveira" content="Gustavo Felipe de Oliveira!">
+
+    <link rel="stylesheet" href="{% static 'todo/material-kit.min.css' %}">
+    <link rel="stylesheet" href="{% static 'todo/custom.css' %}">
+
+  </head>
+
+<body class= "container: 'body'" style="background-color: rgba(50, 47, 52, 1)">
+<div class="row">
+		<div class="col-md-12">
+			<ul class="nav nav-pills">
+				<li class="nav-item">
+					<a class="nav-link active" href="#">Home</a>
+				</li>
+				<li class="nav-item">
+					 <a type="submit" class="btn btn-simple btn-sm" href="{% url 'createtodo'%}">Create</a>
+				</li>
+				<li class="nav-item">
+					<a type="submit" class="btn btn-simple btn-sm" href="{% url 'currenttodos'%}">Current</a>
+				</li>
+				<li class="nav-item dropdown ml-md-auto">
+					 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+						 <a class="dropdown-item" href="#">Action</a> <a class="dropdown-item" href="#">Another action</a> <a class="dropdown-item" href="#">Something else here</a>
+						<div class="dropdown-divider">
+						</div> <a class="dropdown-item" href="#">Separated link</a>
+					</div>
+				</li>
+			</ul>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="#">Home</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="#">Library</a>
+					</li>
+					<li class="breadcrumb-item active">
+						Data
+					</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+
+{% if user.is_authenticated %} <!--  -->
+<div class="container-fluid" style="background-color: rgba(	224, 144, 57, 1)">
+    <div class="row">
+        <div class="col py-3 px-lg-5 my-auto" style="text-align: left;" >
+            <div class="text-light" style="text-align: left;" >
+                Logged in as <b>{{ user.username }}</b>
+            </div>
+        </div>
+        <div class="col py-3 px-lg-5 my-auto ">
+              <div style="text-align: right;" >
+                  <a type="submit" class="btn btn-simple btn-sm" href="{% url 'createtodo'%}">Create</a>
+                  <a type="submit" class="btn btn-simple btn-sm" href="{% url 'currenttodos'%}">Current</a>
+                  <a type="submit" class="btn btn-simple btn-sm" href="{% url 'completedtodos'%}">Completed</a>
+              </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="container-fluid" style="text-align: left;">
+    <div>
+        <form action="{% url 'logoutuser' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-simple btn-sm">LOGOUT</button>
+        </form>
+    </div>
+{% else %}
+
+    <div class="container-fluid" style="text-align: right;">
+        <a href="{% url 'signupuser' %}">Sign Up</a>
+        <a href="{% url 'loginuser' %}">Login</a>
+    </div>
+</div>
+{% endif %}
+
+<br>
+<br>
+
+
+<div class="container">
+    <div class="text-light" style="text-align: left;" >
+{% block content %}{% endblock %}
+    </div>
+</div>
+</body>
